@@ -4,6 +4,7 @@ from os import utime
 from pathlib import Path
 from subprocess import Popen
 from typing import Optional
+import re
 
 from dateutil.tz import tzlocal
 
@@ -42,6 +43,8 @@ def add_metadata(
     # First, get/validate paths, then prepare for merging
     root = memory_folder / metadata.mid
 
+# Function to remove the matched date format from each file name
+
     base = _add_suffix(metadata.type, root.with_name(root.name + "-main"))
 
     logging.debug(f"base image found: {base}")
@@ -62,7 +65,7 @@ def add_metadata(
 
     output = _add_suffix(
         metadata.type, output_folder /
-        (metadata.date.strftime('%Y-%m-%d_%H:%M_') + root.name))
+        (metadata.date.strftime('%Y-%m-%d') + root.name))
     logging.debug(f"output file: {output}")
     assert not output.exists()
 

@@ -11,6 +11,7 @@ from args import parse_args
 from SnapchatMemoriesMetadataAdder.adder import add_file_creation, add_metadata
 from SnapchatMemoriesMetadataAdder.metadata import MediaType
 from SnapchatMemoriesMetadataAdder.parser import parse_history
+from rename_files import rename_without_date_prefix
 
 
 def main():
@@ -23,6 +24,8 @@ def main():
         parsed = parse_history(json.load(metadata)["Saved Media"])
 
     files = []
+
+    rename_without_date_prefix(args.memories_folder)
 
     # You start a project hopeful, and this stayed clean until the end...
     # Unfortunately the parallelism in VIPS is entirely separate from ffmpeg-
